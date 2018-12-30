@@ -7,9 +7,9 @@ exports.createInstruction =function(req, res){
 
     var InstructionObject = {
         instructionID:uuid(),
-    	duration:req.body.description,
-    	description:req.body.description,
-    	testCaseIDList:[req.body.optionalInstructionIDList] //May cause an err
+    	duration:0,
+    	description:"req.body.description",
+    	testCaseIDList:["033afe52-7770-11e8-a246-d07e35274f83"] //May cause an err  req.body.optionalInstructionIDList
     }
 
     Instruction.create(InstructionObject, function(err,data){
@@ -66,13 +66,13 @@ exports.findInstructionByTastCase =function(req, res){
 
 exports.addRelatedTestCase =function(req, res){
 
-	var instructionID = req.body.instructionID,
-		teastCaseID = req.body.teastCaseID;
+    var instructionID = req.body.instructionID,
+        teastCaseID = req.body.teastCaseID;
 
-	Instruction.update({"instructionID":instructionID},
-            				   {
-            				   	  $push:{"testCaseIDList":teastCaseID}
-            				   	
+    Instruction.update({"instructionID":instructionID},
+                               {
+                                  $push:{"testCaseIDList":teastCaseID}
+                                
         }).exec(function(err, result){
             if(err){
                 console.log("error: " + err);
@@ -83,4 +83,34 @@ exports.addRelatedTestCase =function(req, res){
                return;
             }
         });
+}
+
+
+exports.setDuration =function(req, res){
+
+    console.log("set duration running");
+
+    var duration = req.body.sub_duration,
+        instructionIDList = req.body.instructionIDList;
+
+    var list_size = instructionIDList.length;
+
+    var instructionID, i =0;
+    
+    for(i;i<list_size;i++){
+        Instruction.update({"instructionID":instructionIDList[i]},
+                               {
+                                  $set:{"duration":duration}
+                                
+        }).exec(function(err, result){
+            if(err){
+                console.log("error: " + err);
+                return 0;
+            }                 
+            else{
+               console.log("Duration has been set");
+               return;
+            }
+        });
+    }   
 }

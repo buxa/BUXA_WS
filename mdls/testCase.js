@@ -78,6 +78,19 @@ exports.listOfTestCaseType =function(req, res){
     });
 }
 
+exports.listOfTestCaseName =function(req, res){
+    TestCase.find({},{name:1,caseID:1,_id:0}).
+        exec(function(err, docs){
+            if(err){
+                console.log("error: " + err);
+                return 0;
+            }
+            console.log("Test Case:" + JSON.stringify(docs));
+            res.json(docs);
+            return;                               
+    });
+}
+
 
 exports.removeTestCase =function(req, res){
 

@@ -80,6 +80,7 @@ app.post('/findTestCaseByID', testCaseAction.findTestCaseByID);
 app.post('/findTestCaseByType', testCaseAction.findTestCaseByType);
 app.post('/removeTestCase', testCaseAction.removeTestCase);
 app.post('/listOfTestCaseType', testCaseAction.listOfTestCaseType);
+app.post('/listOfTestCaseName', testCaseAction.listOfTestCaseName);
 
 
 // (5): Instruction Routes:
@@ -88,6 +89,7 @@ app.post('/createInstruction', instructionAction.createInstruction);
 app.post('/findInstructionByID', instructionAction.findInstructionByID);
 app.post('/findInstructionByTastCase', instructionAction.findInstructionByTastCase);
 app.post('/addRelatedTestCase', instructionAction.addRelatedTestCase);
+app.post('/setDuration', instructionAction.setDuration);
 
 
 // (6): Remark Routes:
